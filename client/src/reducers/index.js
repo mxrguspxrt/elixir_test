@@ -1,0 +1,5 @@
+import LOAD_PRICES_RESULT from './LOAD_PRICES_RESULT'
+
+export default {
+  LOAD_PRICES_RESULT
+}
