@@ -14,7 +14,15 @@ defmodule Api.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :cowboy, :plug, :poison],
+      extra_applications: [
+        :logger,
+        :cowboy,
+        :plug,
+        :poison,
+        :mongodb,
+        :poolboy,
+        :httpoison
+      ],
       mod: {Api.Application, []}
     ]
   end
@@ -24,7 +32,10 @@ defmodule Api.MixProject do
     [
       {:cowboy, "~> 1.0.0"},
       {:plug, "~> 1.5"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:mongodb, ">= 0.0.0"},
+      {:poolboy, ">= 0.0.0"},
+      {:httpoison, ">= 0.0.0"}
     ]
   end
 end

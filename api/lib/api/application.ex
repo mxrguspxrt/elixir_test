@@ -6,9 +6,11 @@ defmodule Api.Application do
   use Application
 
   def start(_type, _args) do
-    # List all child processes to be supervised
+    # import Supervisor.Spec
+
     children = [
-      Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Api.Router, options: [port: 8085])
+      Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Api.Router, options: [port: 8085]),
+      # worker(Mongo, [[name: :mongo, database: "elixir_test", pool: DBConnection.Poolboy]])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
