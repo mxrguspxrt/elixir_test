@@ -7,13 +7,16 @@ import {
 
 export default function() {
   const {app} = this.props
-  const {startWatchingCurrency} = app.state.form || {}
+  const {state} = app
+  const {startWatchingCurrency} = state.form || {}
+  const {isLoading, errors, items} = state.prices || {}
   const currencies = ['BTC', 'XPR', 'LTC']
-  const prices = [
-    {currency: 'BTC', price: 5612.12},
-    {currency: 'XPR', price: 0.35}
-  ]
-  const watchedCurrencies = prices.map(price => price.currency)
+
+  if (isLoading) {
+    return <b>Loading</b>
+  }
+
+  const watchedCurrencies = items.map(price => price.currency)
   const notWatchedCurrencies = currencies.filter(
     currency => !watchedCurrencies.includes(currency)
   )
@@ -23,22 +26,23 @@ export default function() {
       <h1>Crypto prices watchlist</h1>
       <div className="price-list">
         <h2>Prices currently are</h2>
-        {prices.map(({price, currency}) => (
-          <div className="price-list-item" key={currency}>
-            <div className="currency">{currency}</div>
-            <div className="price">{price}</div>
-            <div className="stop-watching">
-              <button
-                className="remove"
-                onClick={() =>
-                  app.dispatch(STOP_WATCHING_CURRENCY_REQUEST, {currency})
-                }
-              >
-                Stop watching
-              </button>
+        {items &&
+          items.map(({price, currency}) => (
+            <div className="price-list-item" key={currency}>
+              <div className="currency">{currency}</div>
+              <div className="price">{price}</div>
+              <div className="stop-watching">
+                <button
+                  className="remove"
+                  onClick={() =>
+                    app.dispatch(STOP_WATCHING_CURRENCY_REQUEST, {currency})
+                  }
+                >
+                  Stop watching
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
       <div className="add-price">
         <h2>Add a new currency to watchlist</h2>

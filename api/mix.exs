@@ -35,7 +35,8 @@ defmodule Api.MixProject do
       {:poison, "~> 3.1"},
       {:mongodb, ">= 0.0.0"},
       {:poolboy, ">= 0.0.0"},
-      {:httpoison, ">= 0.0.0"}
+      {:httpoison, ">= 0.0.0"},
+      {:cors_plug, "~> 1.5"}
     ]
   end
 end

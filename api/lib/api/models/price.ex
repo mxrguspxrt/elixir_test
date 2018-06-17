@@ -51,4 +51,12 @@ defmodule Api.Price do
     end
   end
 
+  def load_latest_prices_as_list() do
+    latest_prices = load_latest_prices()
+
+    [
+      %{currency: "BTC", price: latest_prices["btc_eur"]}
+    ]
+  end
+
 end
