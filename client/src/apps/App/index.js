@@ -5,6 +5,11 @@ import render from './render'
 import './index.css'
 
 class App extends Component {
+  constructor(...args) {
+    super(...args)
+    this.state = {}
+    window.app = this
+  }
   api = api
   dispatch = dispatch
   render = render

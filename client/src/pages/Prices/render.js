@@ -1,11 +1,13 @@
 import React from 'react'
 import {
-  SET_START_WATCHING_CURRENCY,
-  STOP_WATCHING_CURRENCY_REQUEST
+  SET_FORM_VALUE,
+  STOP_WATCHING_CURRENCY_REQUEST,
+  START_WATCHING_CURRENCY_REQUEST
 } from '../../constants'
 
 export default function() {
-  const {app, startWatchingCurrency} = this.props
+  const {app} = this.props
+  const {startWatchingCurrency} = app.state.form || {}
   const currencies = ['BTC', 'XPR', 'LTC']
   const prices = [
     {currency: 'BTC', price: 5612.12},
@@ -43,19 +45,29 @@ export default function() {
         <select
           value={startWatchingCurrency}
           onChange={event =>
-            app.dispatch(SET_START_WATCHING_CURRENCY, {
+            app.dispatch(SET_FORM_VALUE, {
               startWatchingCurrency: event.target.value
             })
           }
         >
-          <option value={null}>Select a currency to watch</option>
+          <option value="">Select a currency to watch</option>
           {notWatchedCurrencies.map(currency => (
             <option value={currency} key={currency}>
               {currency}
             </option>
           ))}
         </select>
-        {startWatchingCurrency && <button>Watch currency</button>}
+        {startWatchingCurrency && (
+          <button
+            onClick={() =>
+              app.dispatch(START_WATCHING_CURRENCY_REQUEST, {
+                currency: startWatchingCurrency
+              })
+            }
+          >
+            Watch currency
+          </button>
+        )}
       </div>
     </div>
   )
