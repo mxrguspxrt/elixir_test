@@ -1,0 +1,7 @@
+.prices-page .price-list-item {
+  margin-bottom: 20px;
+}
+
+.prices-page .price-list-item .currency {
+  font-weight: 800;
+}

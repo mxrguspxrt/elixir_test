@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
+import {Component} from 'react'
+import dispatch from './dispatch'
+import render from './render'
 import './index.css'
 
 class App extends Component {
-  render() {
-    return <b>hello</b>
-  }
+  dispatch = dispatch
+  render = render
 }
 
 export default App
