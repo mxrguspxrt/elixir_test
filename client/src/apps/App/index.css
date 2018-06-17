@@ -20,7 +20,8 @@ input,
 button,
 select {
   padding: 20px;
-  background-color: #ccc;
+  background-color: #888;
+  color: #fff;
 }
 
 button {
