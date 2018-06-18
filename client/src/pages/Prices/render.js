@@ -2,7 +2,8 @@ import React from 'react'
 import {
   SET_FORM_VALUE,
   STOP_WATCHING_CURRENCY_REQUEST,
-  START_WATCHING_CURRENCY_REQUEST
+  START_WATCHING_CURRENCY_REQUEST,
+  SUPPORTED_CURRENCIES
 } from '../../constants'
 
 export default function() {
@@ -10,7 +11,7 @@ export default function() {
   const {state} = app
   const {startWatchingCurrency} = state.form || {}
   const {isLoading, items} = state.prices || {}
-  const currencies = ['BTC', 'ETH', 'XRP', 'LTC']
+  const currencies = SUPPORTED_CURRENCIES
 
   if (isLoading) {
     return <b>Loading</b>
