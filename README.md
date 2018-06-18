@@ -1,5 +1,7 @@
 # Overall
 
+Implementing this project took 1 day, around 10 hours.
+
 ## Client
 
 * Is a simple React app, with custom dispatching, state update and event
