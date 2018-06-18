@@ -16,10 +16,8 @@ defmodule Api.Price do
     http_response = HTTPoison.get!(url)
     currencies = Poison.decode!(http_response.body)
 
-    {:ok, mongodb_connection} = Mongo.start_link(url: "mongodb://localhost:27017/elixir_test")
-
     Mongo.insert_one(
-      mongodb_connection,
+      :mongo,
       "prices",
       %{
         "timestamp" => :os.system_time(:seconds),
@@ -27,19 +25,19 @@ defmodule Api.Price do
         "eth_eur" => currencies["ETH"]["EUR"],
         "xrp_eur" => currencies["XRP"]["EUR"],
         "ltc_eur" => currencies["LTC"]["EUR"],
-      }
+      },
+      pool: DBConnection.Poolboy
     )
   end
 
   def load_latest_prices() do
-    {:ok, mongodb_connection} = Mongo.start_link(url: "mongodb://localhost:27017/elixir_test")
-
     existing_prices_cursor = Mongo.find(
-      mongodb_connection,
+      :mongo,
       "prices",
       %{},
       limit: 1,
-      sort: %{timestamp: -1}
+      sort: %{timestamp: -1},
+      pool: DBConnection.Poolboy
     )
 
     existing_prices = Enum.to_list(existing_prices_cursor)
@@ -55,7 +53,10 @@ defmodule Api.Price do
     latest_prices = load_latest_prices()
 
     [
-      %{currency: "BTC", price: latest_prices["btc_eur"]}
+      %{currency: "BTC", price: latest_prices["btc_eur"]},
+      %{currency: "ETH", price: latest_prices["eth_eur"]},
+      %{currency: "XRP", price: latest_prices["xrp_eur"]},
+      %{currency: "LTC", price: latest_prices["ltc_eur"]}
     ]
   end
 

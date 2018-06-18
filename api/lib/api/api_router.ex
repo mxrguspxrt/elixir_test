@@ -22,7 +22,12 @@ defmodule Api.Router do
   plug(:dispatch)
 
   post "/api/calls" do
-    result = Api.Calls.LOAD_PRICES_REQUEST.run(conn.body_params)
+    params = conn.body_params
+    result = case params["action"] do
+      "LOAD_PRICES_REQUEST" -> Api.Calls.LOAD_PRICES_REQUEST.run(params["params"])
+      "START_WATCHING_CURRENCY_REQUEST" -> Api.Calls.START_WATCHING_CURRENCY_REQUEST.run(params["params"])
+      "STOP_WATCHING_CURRENCY_REQUEST" -> Api.Calls.STOP_WATCHING_CURRENCY_REQUEST.run(params["params"])
+    end
     send_resp(conn, 200, Poison.encode!(%{result: result}))
   end
 

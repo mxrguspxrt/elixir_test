@@ -10,7 +10,7 @@ export default function() {
   const {state} = app
   const {startWatchingCurrency} = state.form || {}
   const {isLoading, errors, items} = state.prices || {}
-  const currencies = ['BTC', 'XPR', 'LTC']
+  const currencies = ['BTC', 'ETH', 'XRP', 'LTC']
 
   if (isLoading) {
     return <b>Loading</b>
