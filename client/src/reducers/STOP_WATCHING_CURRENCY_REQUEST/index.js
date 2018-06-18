@@ -3,7 +3,7 @@ export default function({currency}, oldState = {}) {
     ...oldState,
     prices: {
       ...oldState.prices,
-      items: oldState.prices.items.filter(item => item.currency != currency)
+      items: oldState.prices.items.filter(item => item.currency !== currency)
     }
   }
 }

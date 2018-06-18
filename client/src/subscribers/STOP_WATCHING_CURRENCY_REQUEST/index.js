@@ -1,7 +1,4 @@
-import {
-  STOP_WATCHING_CURRENCY_RESPONSE,
-  LOAD_PRICES_REQUEST
-} from '../../constants'
+import {STOP_WATCHING_CURRENCY_RESPONSE} from '../../constants'
 
 export default async function({app, action, params}) {
   const {api} = app

@@ -6,12 +6,14 @@ defmodule Api.Calls.LOAD_PRICES_REQUEST do
     watching_currencies = current_user["watching_currencies"]
     prices_list = Api.Price.load_latest_prices_as_list()
 
-    Enum.filter(
+    filter_only_watching_currencies_from_prices_list = Enum.filter(
       prices_list,
       fn(prices_list_item) ->
         Enum.member?(watching_currencies, prices_list_item[:currency])
       end
     )
+
+    filter_only_watching_currencies_from_prices_list
   end
 
 end
